@@ -22,6 +22,7 @@ class _HomeState extends State<Home> {
   List<DeepModel> temp = [];
   TextEditingController search = TextEditingController();
   final GlobalKey<FabCircularMenuPlusState> fabKey = GlobalKey();
+  int x;
   @override
   void initState() {
     // TODO: implement initState
