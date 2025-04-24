@@ -119,17 +119,18 @@ class _SignInScreenState extends State<SignInScreen> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
-                              if (BlocProvider.of<LoginCubit>(
-                                context,
-                              ).loginKey.currentState!.validate()) {
-                                // BlocProvider.of<LoginCubit>(context).login();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Home(),
-                                  ),
-                                );
-                              }
+                              BlocProvider.of<LoginCubit>(context).login();
+                              //  if (BlocProvider.of<LoginCubit>(
+                              //      context,
+                              //    ).loginKey.currentState!.validate()) {
+
+                              //      Navigator.push(
+                              //       context,
+                              //      MaterialPageRoute(
+                              //        builder: (context) => Home(),
+                              //      ),
+                              //  );
+                              //    }
                               // if (_formKey.currentState!.validate()) {
                               //   Navigator.pushReplacementNamed(
                               //       context, '/home'); // ✅ Navigate to home

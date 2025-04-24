@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 //import 'package:deep_faking_detection/core/cache/cache_helper.dart';
 
 import 'package:deepfake/model/login_model.dart';
+import 'package:deepfake/repo/auth_repo.dart';
 import 'package:flutter/material.dart';
 
 import 'login_state.dart';
@@ -23,22 +24,17 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginModel? loginModel;
   // login method
+  AuthRepo authRepo = AuthRepo();
+  // SignUp
   void login() async {
-    /* emit(LoginLoadingState());
-    final result = await authrepo.login(
-      userName: emailController.text,
-      password: passwordController.text,
-    );
-    result.fold((l) => emit(LoginErrorState(l)), (r) async {
-      loginModel = r;
-      Map<String, dynamic> decodedToken = JwtDecoder.decode(r.idToken);
-      await sl<CacheHelper>()
-          .saveData(key: Apikeys.id, value: decodedToken[Apikeys.id]);
-      await sl<CacheHelper>().saveData(
-        key: Apikeys.idToken,
-        value: r.idToken,
-      ); 
-      emit(LoginSuccessState());
-    });*/
+    print(emailController.text);
+    print(passwordController.text);
+
+    final result = await authRepo.signIn({
+      "users_email": emailController.text,
+      "users_password": passwordController.text,
+    });
+
+    print(result);
   }
 }
