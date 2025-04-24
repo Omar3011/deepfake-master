@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 
 import 'package:deepfake/model/login_model.dart';
 import 'package:deepfake/repo/auth_repo.dart';
+import 'package:deepfake/view/home.dart';
 import 'package:flutter/material.dart';
 
 import 'login_state.dart';
@@ -26,7 +27,7 @@ class LoginCubit extends Cubit<LoginState> {
   // login method
   AuthRepo authRepo = AuthRepo();
   // SignUp
-  void login() async {
+  void login(context) async {
     print(emailController.text);
     print(passwordController.text);
 
@@ -34,7 +35,9 @@ class LoginCubit extends Cubit<LoginState> {
       "users_email": emailController.text,
       "users_password": passwordController.text,
     });
-
+    if (result["status"] == "success") {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    }
     print(result);
   }
 }
