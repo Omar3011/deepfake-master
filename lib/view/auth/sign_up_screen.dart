@@ -8,14 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SignUpScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -151,17 +143,10 @@ class SignUpScreen extends StatelessWidget {
                               height: 50,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    /// ✅ Navigate to Sign-In Page & Pass Email & Password
-                                    Navigator.pushReplacementNamed(
-                                      context,
-                                      '/signin',
-                                      arguments: {
-                                        'email': emailController.text,
-                                        'password': passwordController.text,
-                                      },
-                                    );
-                                  }
+                                  /// ✅ Navigate to Sign-In Page & Pass Email & Password
+                                  context.read<SignUpCubit>().signUp();
+                                  //     if (_formKey.currentState!.validate()) {
+                                  //   }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.purple,

@@ -1,3 +1,6 @@
+// ignore_for_file: empty_catches
+
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -49,5 +52,41 @@ class DioService {
     } catch (e) {
       print("Upload error: $e");
     }
+  }
+
+  Future postData(String linkApi, Map<String, dynamic> data) async {
+    try {
+      if (await checkInternet()) {
+        var response = await dio.post(
+          linkApi,
+          queryParameters: data,
+          options: Options(headers: {"Content-Type": "application/json"}),
+        );
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          Map responseBody = jsonDecode(response.data);
+          print(
+            "=========================================$responseBody from dio package",
+          );
+          return responseBody;
+        } else {
+          return "Server Falure";
+        }
+      } else {
+        return "Connection Falure";
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
+}
+
+checkInternet() async {
+  try {
+    var result = await InternetAddress.lookup("google.com");
+    if (result.isNotEmpty && result[0].address.isNotEmpty) {
+      return true;
+    }
+  } on SocketException catch (_) {
+    return false;
   }
 }
